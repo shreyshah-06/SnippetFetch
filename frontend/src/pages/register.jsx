@@ -58,7 +58,7 @@ function Register() {
 
     // sends data to backend and redirects to login page
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch("http://localhost:5000/snippetFetch/adduser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

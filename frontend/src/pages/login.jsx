@@ -34,24 +34,24 @@ export default function Login() {
       password,
     });
     // connecting with backend, verifying if the user if vereified user or not
-    // const verification = async () => {
-    //   try {
-    //     const result = await axios.post("http://localhost:5000/auth/login", requestBody);
-    //     if (result.status === 200) {
-    //       console.log(result.data.data)
-    //       // const { token} = await response.json();
-    //       localStorage.setItem('user',result);
-    //       window.location.href="/register";
-    //       alert("Success");
-    //     } else {
-    //       alert("Failed");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+    const verification = async () => {
+      try {
+        const result = await axios.post("http://localhost:5000/snippetFetch/loginuser", requestBody);
+        if (result.status === 200) {
+          console.log(result.data.data)
+          // const { token} = await response.json();
+          localStorage.setItem('user',result);
+          window.location.href="/adduser";
+          alert("Success");
+        } else {
+          alert("Failed");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    // verification();
+    verification();
     try {
       const response = fetch("http://localhost:5000/auth/login", {
         method: "POST",
