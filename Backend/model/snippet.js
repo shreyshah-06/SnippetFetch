@@ -5,6 +5,10 @@ const SnippetManager = new mongoose.Schema({
     reqiured: true,
     unique: true,
   },
+  password:{
+    type:String,
+    reqiured:true,
+  },
   keywords:{
     type:Array,
     default:[]

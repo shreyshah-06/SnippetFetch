@@ -1,10 +1,13 @@
 const Snippetmodel = require('../model/snippet')
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const addUser = async(req,res)=>{
     try {
-        const user = req.body;
-        console.log(user)
-        const create = await Snippetmodel.create(user);
+        const {username,password:plainTextPassword} = req.body;
+        console.log(req.body)
+        password = await bcrypt.hash(plainTextPassword,10);
+        console.log(password)
+        const create = await Snippetmodel.create({username,password});
         if (!create) {
             return res.status(400).send({ status: "not ok", msg: "user not created" });
         }
@@ -13,6 +16,30 @@ const addUser = async(req,res)=>{
         console.log(error)
     }
 }
+
+const loginUser = async (req, res) => {
+    
+    try {
+      const {username, password}=req.body;
+      const user = await Snippetmodel.findOne({username});
+      console.group(req.body)
+      if (!user){
+        return res.status(400).send({ status: "not ok", msg: "user not found" });
+      }
+      const match= await bcrypt.compare(password,user.password);
+      if(match){
+          const { _id} = user;
+          const token = jwt.sign({ _id, username }, process.env.SECRET_KEY);
+          return res.status(200).send({ status: "ok", token });
+      }
+      else{
+          return res.status(400).send({ status: "not ok" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 const addSnippet = async(req,res)=>{
     try {
         const user  = req.body.username;
@@ -43,4 +70,4 @@ const addSnippet = async(req,res)=>{
     }
 }
 
-module.exports = {addSnippet,addUser}
+module.exports = {addSnippet,addUser,loginUser}

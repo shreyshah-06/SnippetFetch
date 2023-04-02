@@ -1,11 +1,9 @@
 const Snippetmodel = require('../model/snippet')
 const {addSnippet,addUser} = require('../controllers/addSnippet')
 
-
 const generateKey = async(req,res)=>{
     try {
-        const user = req.body.username;
-        const keyword = req.body.keyword;
+        const{username:user,keyword}=req.body;
         return res.json({key:`${user}_${keyword}`})
     } catch (error) {
         console.log(error);
@@ -13,9 +11,7 @@ const generateKey = async(req,res)=>{
 }
 const shareSnippet = async(req,res)=>{
     try {
-        const key = req.body.key;
-        const userFetching = req.body.username;
-        const userKeyword = req.body.keyword;
+        const {key,username:userFetching,keyword:userKeyword,display} = req.body;
         const user = key.split('_')[0];
         const keyword = key.split('_')[1];
         const userData = await Snippetmodel.find({username:user});
@@ -31,7 +27,6 @@ const shareSnippet = async(req,res)=>{
         if(checkKeyword!=undefined){
             return res.status(400).json({status:"not ok",msg:"keyword already exist"})
         }
-        const display = req.body.display;
         if(display==="private"){
             userfetchingData[0].keywords.push({word:userKeyword});
             snippetCopy.display = "private";
@@ -42,8 +37,8 @@ const shareSnippet = async(req,res)=>{
         }
         else{
             userfetchingData[0].keywords.push({word:userKeyword});
-            snippet.display = "public";
-            snippet.Snippet_keyword = userKeyword;
+            snippetCopy.display = "public";
+            snippetCopy.Snippet_keyword = userKeyword;
             const newsnippetCopy  = {display:snippetCopy.display,category:snippetCopy.category,Snippet_keyword:snippetCopy.Snippet_keyword,Snippet:snippetCopy.Snippet}
             await userfetchingData[0].publicSnippets.push(newsnippetCopy);
             await userfetchingData[0].save();

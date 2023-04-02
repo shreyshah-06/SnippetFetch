@@ -7,12 +7,11 @@ const updateSnippet = async(req,res)=>{
         if(!user){
             return res.status(400).json({status:"not ok",msg:"user not found"})
         }
-        const keyword = userData.keyword;
-        const category = userData.category;
+        const{keyword,category}=userData;
         console.log(user)
-        const old = await user[0].privateSnippets.find((item)=>item.Snippet_keyword===keyword && item.category===category);
+        const old = await user[0].privateSnippets.find((item)=>String(item.Snippet_keyword)===(keyword) && item.category===category);
         if(!old){
-            const oldPublic = await user[0].publicSnippets.find((item)=>item.Snippet_keyword===keyword && item.category===category);
+            const oldPublic = await user[0].publicSnippets.find((item)=>String(item.Snippet_keyword)===(keyword) && item.category===category);
             if(!oldPublic){
                 return res.status(400).json({status:"not ok",msg:"snippet not found"})
             }
