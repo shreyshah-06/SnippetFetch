@@ -8,18 +8,19 @@ const Ul = styled.ul`
   flex-flow: row nowrap;
   z-index:1;
   font-weight:600;
-  padding-right:2rem;
+  padding-right:0rem;
   padding-left: 0rem;
-  
+  *,
+  *::after,
+  *::before {
+      margin: 0;
+      box-sizing: border-box; 
+      padding: 0;
+  }
+
 @media (min-width: 769px){
   //myStyle Start
-  *,
-*::after,
-*::before {
-    margin: 0;
-    box-sizing: border-box; 
-    padding: 0;
-}
+ 
 ul{
   padding : 0;
 }
@@ -28,7 +29,7 @@ ul{
     align-items: center;
     justify-content: space-between;
     background-color: rgb(31,22,59);
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem 0rem;
     box-shadow: 0px 2.98256px 7.4564px rgba(13, 124, 105, 0.899);
     height: 11vh;
     width: 100vw;
