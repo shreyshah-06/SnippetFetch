@@ -21,6 +21,7 @@ const StyledBurger = styled.div`
         height:0.4rem;
     }
   }
+
   div {
     width: 2rem;
     height: 0.25rem;

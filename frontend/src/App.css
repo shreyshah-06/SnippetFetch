@@ -1,30 +1,62 @@
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
+
 * {
-  margin: 0 !important;
+  /* margin: 0 !important; */
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-#home{
+#home {
   height: 100vh;
   background-color: #0077b6;
 }
 
 
-@media(max-width:1020px){
-  #loginimg1{
-    width:100%
+@media(max-width:1020px) {
+  #loginimg1 {
+    width: 100%
   }
 }
 
 
-@media(max-width:761px){
-  .form-control{
+@media(max-width:761px) {
+  .form-control {
     background-color: black;
   }
-  #Loginimg{
+
+  #Loginimg {
     display: none;
     padding: 0;
   }
+}
+
+body {
+  /* padding: 0; */
+  /* margin: 0; */
+
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 8vh;
+
+}
+
+.heading h3 {
+  color: rgb(165, 26, 165);
+  /* color: #39cb8e; */
+}
+
+.heading span {
+  /* color: #39cb8e; */
+  color: #39cb8e;
+}
+
+.bgDesign{
+  height: 50px;
 }
